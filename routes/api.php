@@ -23,14 +23,14 @@ Route::group([
         'middleware' => 'auth:api'
     ], function () {
         Route::get('logout', 'AuthController@logout');
-        Route::get('user', 'AuthController@user');
+        Route::get('users', 'AuthController@users');
         Route::post('update','AuthController@updateProfile');
         Route::post('changepwd','AuthController@changePassword');
     });
 });
 
 Route::get('all-posts','APIController@getPost');
-Route::post('user-posts','APIController@getUserPost');
+Route::post('users-posts','APIController@getUserPost');
 Route::get('all-vehicles','APIController@getVehicleInfo');
 Route::post('create-post','APIController@storePost');
 Route::post('update-post','APIController@updatePost');

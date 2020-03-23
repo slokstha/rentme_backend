@@ -11,7 +11,7 @@ class APIController extends Controller
 {
     public function getPost()
     {
-        $posts = Post::with(['user'])
+        $posts = Post::with(['users'])
             ->get();
         foreach ($posts as $post) {
             $imageRecord = Post::where('id', $post->id)->get(['images']);
@@ -41,7 +41,7 @@ class APIController extends Controller
 
     public function getVehicleInfo()
     {
-        $vehicles = Vehicle::with(['user'])->get();
+        $vehicles = Vehicle::with(['users'])->get();
         return response()->json([
             'data' => $vehicles
         ]);

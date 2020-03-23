@@ -48,7 +48,7 @@ class AuthController extends Controller
                 $user->create($data);
                 return response()->json([
                     'status' => true,
-                    'message' => 'Successfully created user!'
+                    'message' => 'Successfully created users!'
                 ], 201);
             }
             catch (\Exception $exception){
@@ -76,7 +76,7 @@ class AuthController extends Controller
                         'message' => 'Wrong phone or password'
                     ], 401);
                 $user = $request->user();
-//                if ($user->counct()>0)
+//                if ($users->counct()>0)
                 $user['profile_pic_url'] = url('/') . '/uploads/users/' . $user->profile_pic_url;
                 $tokenResult = $user->createToken('Personal Access Token');
                 if ($request->remember_me){
@@ -85,7 +85,7 @@ class AuthController extends Controller
                     $token->save();
                 }
                 $data = array();
-                $data['user'] = $user;
+                $data['users'] = $user;
                 $tokenArray = array('access_token' => $tokenResult->accessToken,
                     'token_type' => 'Bearer',
                     'expires_at' => Carbon::parse(
@@ -141,7 +141,7 @@ class AuthController extends Controller
                     'status' => true,
                     'message' => 'Profile Updated successfully',
                     'title' => 'Success',
-//                'data' => $user
+//                'data' => $users
                 ]);
             }
             else {
