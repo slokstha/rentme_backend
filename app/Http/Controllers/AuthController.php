@@ -31,19 +31,19 @@ class AuthController extends Controller
             ],403); //Failed validation: 403 Forbidden ("The server understood the request, but is refusing to fulfill it")
         } else {
             try {
-                $profile_file_name = null;
+                $profile_pic_name = null;
                 if ($request->profile_pic_url) {
                     $str = $request->profile_pic_url;
                     $image = base64_decode($str);
-                    $profile_file_name = now()->format('Y-m-d') . '-' . mt_rand() . '.' . 'jpg';
+                    $profile_pic_name = now()->format('Y-m-d') . '-' . mt_rand() . '.' . 'jpg';
                     $file = Image::make($image);
-                    $file->save('uploads/users/' . $profile_file_name);
+                    $file->save('uploads/users/' . $profile_pic_name);
                 } else {
-                    $profile_file_name = null;
+                    $profile_pic_name = null;
                 }
                 $user = new User();
                 $data = $request->except(['profile_pic_url', 'password', 'password_confirmation']);
-                $data['profile_pic_url'] = $profile_file_name;
+                $data['profile_pic_url'] = $profile_pic_name;
                 $data['password'] = bcrypt($request->password);
                 $user->create($data);
                 return response()->json([
@@ -77,7 +77,10 @@ class AuthController extends Controller
                     ], 401);
                 $user = $request->user();
 //                if ($users->counct()>0)
-                $user['profile_pic_url'] = url('/') . '/uploads/users/' . $user->profile_pic_url;
+                if ($user['profile_pic_url'] != null){
+                    $user['profile_pic_url'] = url('/') . '/uploads/users/' . $user->profile_pic_url;
+                }
+                $user['created_at'] = $user->created_at->diffForHumans();
                 $tokenResult = $user->createToken('Personal Access Token');
                 if ($request->remember_me){
                     $token = $tokenResult->token;

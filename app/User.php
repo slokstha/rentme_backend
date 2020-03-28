@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTimeInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -42,5 +43,9 @@ class User extends Authenticatable
     }
     public function vehicles(){
         return $this->hasMany(Vehicle::class);
+    }
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('M d Y');
     }
 }
