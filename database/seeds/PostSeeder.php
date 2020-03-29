@@ -19,7 +19,7 @@ class PostSeeder extends Seeder
                 'title' => 'Room is on sale',
                 'status' => 0,
                 'city' => 'Kathmandu',
-                'price' => 'Npr, 20000',
+                'price' => 8000,
                 'property_type' => 'Room',
                 'facilities' => 'water 24 available',
                 'created_at' => new DateTime(),

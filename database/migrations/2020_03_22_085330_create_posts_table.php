@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->string('price');
+            $table->integer('price');
             $table->string('location');
             $table->string('city');
             $table->string('property_type');
