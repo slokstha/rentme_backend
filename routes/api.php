@@ -20,7 +20,7 @@ Route::group([
     Route::post('signup', 'AuthController@signup');
 
     Route::group([
-        'middleware' => 'auth:api'
+        'middleware' => 'auth:api' //auth is api
     ], function () {
         Route::get('logout', 'AuthController@logout');
         Route::post('update','AuthController@updateProfile');

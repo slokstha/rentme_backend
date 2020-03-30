@@ -48,7 +48,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Successfully created users!'
-                ], 201);
+                ]);
             }
             catch (\Exception $exception){
 
@@ -72,8 +72,9 @@ class AuthController extends Controller
                 $credentials = request(['phone', 'password']);
                 if (!Auth::attempt($credentials))
                     return response()->json([
+                        'status' => false,
                         'message' => 'Wrong phone or password'
-                    ], 401);
+                    ]);
                 $user = $request->user();
 //                if ($users->counct()>0)
                 if ($user['profile_pic_url'] != null){
@@ -150,15 +151,15 @@ class AuthController extends Controller
                     'status' => false,
                     'message' => 'Unauthorized Access',
                     'title' => 'Failed'
-                ], 401);
+                ]);
 
             }
         }
         catch (\exception $exception){
             return response()->json([
-                dd($exception),
+//                dd($exception),
                 'message'=>'exception occured',
-                'exception'=>$exception
+//                'exception'=>$exception
             ]);
         }
     }

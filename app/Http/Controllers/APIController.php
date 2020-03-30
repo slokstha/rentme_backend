@@ -69,12 +69,13 @@ class APIController extends Controller
                 'status'=>true,
                 'message' => 'Successfully_deleted'
 
-            ], 200);
+            ]);
         } catch (\Exception $exception) {
             return response()->json([
                 dd($exception),
-                'exception' => 'exception occured'
-            ], 500);
+                'status'=>false,
+                'message' => 'exception occured'
+            ]);
         }
     }
 
@@ -96,7 +97,7 @@ class APIController extends Controller
                     'status' => false,
                     'message' => 'validation error',
                     'error' => $validator->errors()
-                ], 403); //Failed validation: 403 Forbidden ("The server understood the request, but is refusing to fulfill it")
+                ]); //Failed validation: 403 Forbidden ("The server understood the request, but is refusing to fulfill it")
             } else {
                 if ($request->bearerToken()) {
                     $user = auth('api')->user()->id;
@@ -129,19 +130,21 @@ class APIController extends Controller
                     return response()->json([
                         'status'=>true,
                         'message' => 'post created successfully'
-                    ], 201);
+                    ]);
 
                 } else {
                     return response()->json([
+                        'status'=>false,
                         'message' => 'not logged in'
-                    ], 401);
+                    ]);
                 }
             }
         } catch
         (\Exception $exception) {
             return response()->json([
-                'exception' => 'exception occured'
-            ], 500);
+                'status'=>false,
+                'message' => 'exception occured'
+            ]);
         }
 
     }
@@ -185,18 +188,20 @@ class APIController extends Controller
                 return response()->json([
                     'status'=>true,
                     'message' => 'updated successfully'
-                ], 201);
+                ]);
 
             } else {
                 return response()->json([
+                    'status'=>false,
                     'message' => 'not logged in'
-                ], 401);
+                ]);
             }
         } catch (\Exception $exception) {
             return response()->json([
-                dd($exception),
-                'exception' => 'exception occured'
-            ], 500);
+//                dd($exception),
+                'status'=>false,
+                'message' => 'exception occured'
+            ]);
         }
     }
 
@@ -208,11 +213,12 @@ class APIController extends Controller
             return response()->json([
                 'status'=>true,
                 'message' => 'Successfully_deleted'
-            ], 200);
+            ]);
         } catch (\Exception $exception) {
             return response()->json([
-                'exception' => 'exception occured'
-            ], 500);
+                'status'=>false,
+                'message' => 'exception occured'
+            ]);
         }
 
 
@@ -229,19 +235,20 @@ class APIController extends Controller
                 return response()->json([
                     'status'=>true,
                     'message' => 'Success'
-                ], 200);
+                ]);
             }
             else{
                 return response()->json([
                     'status'=>false,
-                    'failed' => 'unauthorized'
-                ], 401); //unauthorized
+                    'message' => 'unauthorized'
+                ]); //unauthorized
             }
 
         } catch (\Exception $exception) {
             return response()->json([
+                'status'=>false,
                 'message' => 'not logged in'
-            ], 500);
+            ]);
         }
     }
 
