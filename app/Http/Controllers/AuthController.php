@@ -27,7 +27,7 @@ class AuthController extends Controller
                 'status' => false,
                 'message' => 'validation error',
                 'error' => $validator->errors()
-            ],403); //Failed validation: 403 Forbidden ("The server understood the request, but is refusing to fulfill it")
+            ]); //Failed validation: 403 Forbidden ("The server understood the request, but is refusing to fulfill it")
         } else {
             try {
                 $profile_pic_name = null;
