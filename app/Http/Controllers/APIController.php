@@ -33,7 +33,7 @@ class APIController extends Controller
     public function getUserPost(Request $request)
     {
 
-        $posts = Post::where('user_id', $request->user_id)->get();
+        $posts = Post::where('user_id', $request->user_id)->with(['user'])->get();
         foreach ($posts as $post) {
             $imageRecord = Post::where('id', $post->id)->get(['images']);
             if (is_null($imageRecord->first()->images)) {
