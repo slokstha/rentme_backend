@@ -23,7 +23,6 @@ Route::group([
         'middleware' => 'auth:api'
     ], function () {
         Route::get('logout', 'AuthController@logout');
-        Route::get('users', 'AuthController@users');
         Route::post('update','AuthController@updateProfile');
         Route::post('changepwd','AuthController@changePassword');
     });

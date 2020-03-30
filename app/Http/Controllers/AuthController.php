@@ -122,11 +122,11 @@ class AuthController extends Controller
                 $user = auth('api')->user();
                 if ($request->name)
                     $user->name = $request->name;
-                elseif ($request->address)
+                if ($request->address)
                     $user->address = $request->address;
-                elseif ($request->email)
+                if ($request->email)
                     $user->email = $request->email;
-                elseif($request->profile_pic_url) {
+                if($request->profile_pic_url) {
                     $str = $request->profile_pic_url;
                     $image = base64_decode($str);
                     $profile_file_name = now()->format('Y-m-d') . '-' . mt_rand() . '.' . 'jpg';
