@@ -143,7 +143,7 @@ class AuthController extends Controller
                     'status' => true,
                     'message' => 'Profile Updated successfully',
                     'title' => 'Success',
-//                'data' => $users
+                'data' => $user
                 ]);
             }
             else {
