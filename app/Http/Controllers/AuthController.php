@@ -20,7 +20,6 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
             'address' => 'required',
             'phone' => 'required|unique:users',
-            'profile_pic_url' => 'nullable|mimes:jpg,png,jpeg'
         ]);
         if ($validator->fails()) {
 //            return FirebaseNotification::handleValidation($validator);
