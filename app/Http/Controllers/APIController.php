@@ -11,8 +11,7 @@ class APIController extends Controller
 {
     public function getPost()
     {
-        $posts = Post::with(['user'])
-            ->get();
+        $posts = Post::with(['user'])->get();
         foreach ($posts as $post) {
             $imageRecord = Post::where('id', $post->id)->get(['images']);
             if (is_null($imageRecord->first()->images)) {
@@ -33,21 +32,24 @@ class APIController extends Controller
 
     public function getUserPost(Request $request)
     {
-        if ($request->bearerToken()) {
-            $user = auth('api')->user()->id;
-            $post = Post::where('user_id', $user)->get();
-            return response()->json([
-                'status'=>true,
-                'data' => $post
-            ]);
-        }
-        else{
-            return response()->json([
-                'status'=>false,
-                'message' => 'unauthorized'
-            ]);
-        }
 
+        $posts = Post::where('user_id', $request->user_id)->get();
+        foreach ($posts as $post) {
+            $imageRecord = Post::where('id', $post->id)->get(['images']);
+            if (is_null($imageRecord->first()->images)) {
+                $post['images'] = null;
+            } else {
+                $myArray = explode(' | ', $post['images']); //gives image nameandlocation
+                for ($i = 0; $i < count($myArray); $i++) {
+                    $myArray[$i] = url('/') . '/uploads/room/' . $myArray[$i]; //appending url
+                }
+                $post['images'] = $myArray;
+            }
+
+        }
+        return response()->json([
+            'data' => $posts
+        ]);
     }
 
     public function getVehicleInfo()
