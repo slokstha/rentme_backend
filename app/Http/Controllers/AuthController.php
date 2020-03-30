@@ -119,7 +119,7 @@ class AuthController extends Controller
     {
         try{
             if ($request->bearerToken()) {
-                $user = auth()->user();
+                $user = auth('api')->user();
                 if ($request->name)
                     $user->name = $request->name;
                 elseif ($request->address)
