@@ -33,10 +33,21 @@ class APIController extends Controller
 
     public function getUserPost(Request $request)
     {
-        $post = Post::where('user_id', $request->user_id)->get();
-        return response()->json([
-            'data' => $post
-        ]);
+        if ($request->bearerToken()) {
+            $user = auth('api')->user()->id;
+            $post = Post::where('user_id', $user)->get();
+            return response()->json([
+                'status'=>true,
+                'data' => $post
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>false,
+                'message' => 'unauthorized'
+            ]);
+        }
+
     }
 
     public function getVehicleInfo()
@@ -127,7 +138,6 @@ class APIController extends Controller
         } catch
         (\Exception $exception) {
             return response()->json([
-                dd($exception),
                 'exception' => 'exception occured'
             ], 500);
         }
