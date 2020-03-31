@@ -31,7 +31,7 @@ Route::group([
 Route::get('all-posts','APIController@getPost');
 Route::post('users-posts','APIController@getUserPost');
 Route::get('all-vehicles','APIController@getVehicleInfo');
-Route::get('add-vehicles','APIController@storeVehicle');
+Route::get('add-vehicle','APIController@storeVehicle');
 Route::post('create-post','APIController@storePost');
 Route::post('update-post','APIController@updatePost');
 Route::post('delete-post','APIController@deletePost');
