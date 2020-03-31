@@ -13,11 +13,10 @@ class VehicleSeeder extends Seeder
     {
         for ($i = 0; $i <=5 ; $i++) {
             \App\Vehicle::insert([
-                'title' => 'kamalpokhari'.$i,
-                'description' => 'Danger Room',
-                'owner_name' => 'anita shrestha'.$i,
+                'title' => 'If anybody need vehicle service for transportation means, please contact'.$i,
+                'owner_name' => 'Luffy shrestha'.$i,
                 'contact' => '9865098775'.$i,
-                'service_area' => 1,
+                'service_area' => "SoltiDobato, Kalanki",
                 'price' => 'Npr, 20000',
                 'added_by'=>1,
 

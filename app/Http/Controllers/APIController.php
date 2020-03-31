@@ -30,6 +30,7 @@ class APIController extends Controller
         ]);
     }
 
+
     public function getUserPost(Request $request)
     {
 
@@ -77,6 +78,55 @@ class APIController extends Controller
                 'message' => 'exception occured'
             ]);
         }
+    }
+    public function storeVehicle(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'price' => 'required',
+                'owner_name' => 'required',
+                'contact' => 'required',
+                'service_area' => 'required',
+            ]);
+            if ($validator->fails()) {
+//            return FirebaseNotification::handleValidation($validator);
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'error' => $validator->errors()
+                ]); //Failed validation: 403 Forbidden ("The server understood the request, but is refusing to fulfill it")
+            } else {
+                if ($request->bearerToken()) {
+                    $user = auth('api')->user()->id;
+                    $data['added_by'] = $user;
+                    $data['title'] = $request->title;
+                    $data['contact'] = $request->phone;
+                    $data['price'] = $request->price;
+                    $data['owner_name'] = $request->owner_name;
+                    $data['service_area'] = $request->service_area;
+                    //To-do -> check null images
+                    Post::create($data);
+                    return response()->json([
+                        'status'=>true,
+                        'message' => 'post created successfully'
+                    ]);
+
+                } else {
+                    return response()->json([
+                        'status'=>false,
+                        'message' => 'not logged in'
+                    ]);
+                }
+            }
+        } catch
+        (\Exception $exception) {
+            return response()->json([
+                'status'=>false,
+                'message' => 'exception occured'
+            ]);
+        }
+
     }
 
     public function storePost(Request $request)
