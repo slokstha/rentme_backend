@@ -83,7 +83,7 @@ class APIController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|string',
+                'title' => 'required',
                 'price' => 'required',
                 'owner_name' => 'required',
                 'contact' => 'required',
@@ -106,10 +106,10 @@ class APIController extends Controller
                     $data['owner_name'] = $request->owner_name;
                     $data['service_area'] = $request->service_area;
                     //To-do -> check null images
-                    Post::create($data);
+                    Vehicle::create($data);
                     return response()->json([
                         'status'=>true,
-                        'message' => 'post created successfully'
+                        'message' => 'vehicle added successfully'
                     ]);
 
                 } else {
