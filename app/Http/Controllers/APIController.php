@@ -122,6 +122,7 @@ class APIController extends Controller
         } catch
         (\Exception $exception) {
             return response()->json([
+                dd($exception),
                 'status'=>false,
                 'message' => 'exception occured'
             ]);
