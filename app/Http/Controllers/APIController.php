@@ -101,7 +101,7 @@ class APIController extends Controller
                     $user = auth('api')->user()->id;
                     $data['added_by'] = $user;
                     $data['title'] = $request->title;
-                    $data['contact'] = $request->phone;
+                    $data['contact'] = $request->contact;
                     $data['price'] = $request->price;
                     $data['owner_name'] = $request->owner_name;
                     $data['service_area'] = $request->service_area;
